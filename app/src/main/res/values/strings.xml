@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GoodNote</string>
+    <string name="date_text">截止日期</string>
+    <string name="textview">TextView</string>
 </resources>

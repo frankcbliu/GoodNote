@@ -1,0 +1,10 @@
+<litepal>
+    <daname value='good_note'/>
+    <version value='1'/>
+    <list>
+        <mapping value='com.lcb.goodnote.db.UserData'/>
+        <mapping value='com.lcb.goodnote.db.ActivityData'/>
+        <mapping value='com.lcb.goodnote.db.CourseData'/>
+    </list>
+
+</litepal>
