@@ -2,9 +2,10 @@ package com.lcb.goodnote.db;
 
 import android.graphics.Bitmap;
 
-import org.litepal.crud.DataSupport;
+import org.litepal.crud.LitePalSupport;
 
-public class UserData extends DataSupport {
+
+public class UserData extends LitePalSupport {
     private int id;
     private String user_name;//用户名
     private String pass_word;//密码

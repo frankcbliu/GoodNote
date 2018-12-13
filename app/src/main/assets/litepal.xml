@@ -1,10 +1,12 @@
+<?xml version='1.0' encoding="utf-8" ?>
 <litepal>
-    <daname value='good_note'/>
-    <version value='1'/>
+    <!-- 注意拼写检查-->
+    <dbname value='NoteStore'></dbname>
+    <version value='3'></version>
     <list>
-        <mapping value='com.lcb.goodnote.db.UserData'/>
-        <mapping value='com.lcb.goodnote.db.ActivityData'/>
-        <mapping value='com.lcb.goodnote.db.CourseData'/>
+        <mapping class='com.lcb.goodnote.db.UserData'></mapping>
+        <mapping class='com.lcb.goodnote.db.ActivityData'></mapping>
+        <mapping class='com.lcb.goodnote.db.CourseData'></mapping>
     </list>
 
 </litepal>

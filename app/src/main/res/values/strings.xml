@@ -2,4 +2,17 @@
     <string name="app_name">GoodNote</string>
     <string name="date_text">截止日期</string>
     <string name="textview">TextView</string>
+    <string name="text_theme">活动主题：</string>
+    <string name="text_address">地点：</string>
+    <string name="text_content">活动内容：</string>
+    <string name="button_add">添加</string>
+    <string name="button_cancel">取消</string>
+    <string name="title_activity_login">Sign in</string>
+    
+    <!--登陆窗口字符串 -->
+    <string name="login_forget_pwd">忘记密码</string>
+    <string name="login">登陆</string>
+    <string name="hint_login_password">输入密码</string>
+    <string name="hint_login_username">输入用户名</string>
+    <string name="please_input_limit_pwd">请输入数字或字母</string>
 </resources>
