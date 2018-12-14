@@ -25,8 +25,11 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.lcb.goodnote.login.LoginActivity;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -61,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     private Uri imageUri;
 
 
+    //登陆与退出功能
+    private CheckBox cb_auto;
 
 
     @Override
@@ -149,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.settings:
                 Toast.makeText(this,"You click Settings.",Toast.LENGTH_SHORT).show();
                 break;
+            case R.id.exit:
+                //待完成，退出账号功能
             default:
         }
         return true;

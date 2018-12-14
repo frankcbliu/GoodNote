@@ -8,7 +8,7 @@
     <string name="button_add">添加</string>
     <string name="button_cancel">取消</string>
     <string name="title_activity_login">Sign in</string>
-    
+
     <!--登陆窗口字符串 -->
     <string name="login_forget_pwd">忘记密码</string>
     <string name="login">登陆</string>
