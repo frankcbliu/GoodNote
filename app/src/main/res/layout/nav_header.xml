@@ -16,7 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Liu Canbin"
+        android:text="@string/user_name"
         android:textColor="#FFF"
         android:textSize="14sp"/>
 
@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/username"
-        android:text="2017133125@email.szu.edu.cn"
+        android:text="联系作者：2017133125@email.szu.edu.cn"
         android:textColor="#FFF"
         android:textSize="14sp"/>
 

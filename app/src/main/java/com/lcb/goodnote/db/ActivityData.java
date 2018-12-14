@@ -8,6 +8,7 @@ public class ActivityData extends LitePalSupport {
 
     private int id;
     private String activity_theme;//活动主题
+    private String activity_content;//活动内容
     private String activity_address;//活动地点
     private String activity_year;//年
     private String activity_month;//月 控件中获取的是0-11，此处保存为1-12
@@ -19,6 +20,14 @@ public class ActivityData extends LitePalSupport {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getActivity_content() {
+        return activity_content;
+    }
+
+    public void setActivity_content(String activity_content) {
+        this.activity_content = activity_content;
     }
 
     public String getActivity_theme() {

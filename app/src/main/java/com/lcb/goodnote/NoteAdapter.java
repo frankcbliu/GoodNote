@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -28,7 +29,7 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         public ViewHolder(View view){
             super(view);
             cardView = (CardView) view;
-            notename = (TextView) view.findViewById(R.id.note_name);
+            notename = (TextView) view.findViewById(R.id.note_title);//利用列表id作为title
             notedate = (TextView) view.findViewById(R.id.note_time);
         }
     }

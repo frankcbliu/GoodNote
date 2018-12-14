@@ -1,111 +1,296 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!-- 添加活动界面 -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:theme="@android:style/Theme.Holo.Light"
-    tools:ignore="LabelFor">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_height="50dp">
 
-        <TextView
-            android:id="@+id/text_theme"
-            android:layout_width="180dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/text_theme" />
-
-        <EditText
-            android:id="@+id/edit_text_theme"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:importantForAutofill="no"
-            android:inputType="text"
-            tools:targetApi="o" />
-    </LinearLayout>
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-    <LinearLayout
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"/>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- 内容详情部分，NestedScrollView 和 AppBarLayout是平级的-->
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="180dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/text_address" />
-
-        <EditText
-            android:id="@+id/edit_text_address"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:autofillHints=""
-            android:inputType="text"
-            tools:targetApi="o" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="111dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/textView8"
-            android:layout_width="180dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical|center"
-            android:text="@string/text_content" />
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:autofillHints=""
-            android:inputType="text" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="95dp">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="89dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center_vertical|center_horizontal"
-            android:text="@string/date_text" />
-
-        <DatePicker
-            android:id="@+id/datePicker1"
-            android:layout_width="290dp"
-            android:layout_height="match_parent"
-            android:calendarViewShown="false" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="360dp"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <Button
-            android:id="@+id/button_cancel"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:text="@string/button_cancel" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!-- margin+方向 设置边距-->
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
+                app:cardCornerRadius="4dp">
 
-        <Button
-            android:id="@+id/button_add"
-            android:layout_width="180dp"
-            android:layout_height="wrap_content"
-            android:text="@string/button_add" />
-    </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <!--活动主题-->
 
-</LinearLayout>
+                    <TextView
+                        android:id="@+id/text_theme"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/text_theme" />
+
+                    <EditText
+                        android:id="@+id/edit_text_theme"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#fff"
+                        android:gravity="top"/>
+                </LinearLayout>
+
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
+                app:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <!--地点-->
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/text_address" />
+
+                    <EditText
+                        android:id="@+id/edit_text_address"
+                        android:layout_width="0dp"
+                        android:gravity="top"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="#fff"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
+                app:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="111dp"
+                    android:orientation="horizontal">
+                    <!--活动内容-->
+
+                    <TextView
+                        android:id="@+id/textView8"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|center"
+                        android:text="@string/text_content" />
+
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:inputType="text"
+                        android:gravity="top"
+                        android:background="#fff"/>
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
+                app:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="95dp">
+                    <!-- 截止日期 -->
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="89dp"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:gravity="center_vertical|center_horizontal"
+                        android:text="@string/date_text" />
+
+                    <DatePicker
+                        android:id="@+id/datePicker1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:calendarViewShown="false" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="15dp"
+                app:cardCornerRadius="4dp">
+                <LinearLayout
+                    android:layout_width="360dp"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/button_cancel"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_cancel" />
+
+                    <Button
+                        android:id="@+id/button_add"
+                        android:layout_width="180dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/button_add" />
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+
+    <!--<LinearLayout-->
+    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+    <!--xmlns:tools="http://schemas.android.com/tools"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--tools:context=".AddActivity">-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/text_theme"-->
+            <!--android:layout_width="180dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center_vertical|center_horizontal"-->
+            <!--android:text="@string/text_theme" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/edit_text_theme"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView6"-->
+            <!--android:layout_width="180dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center_vertical|center_horizontal"-->
+            <!--android:text="@string/text_address" />-->
+
+        <!--<EditText-->
+            <!--android:id="@+id/edit_text_address"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="111dp"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView8"-->
+            <!--android:layout_width="180dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:gravity="center_vertical|center"-->
+            <!--android:text="@string/text_content" />-->
+
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:inputType="text" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="95dp">-->
+
+        <!--<TextView-->
+            <!--android:id="@+id/textView"-->
+            <!--android:layout_width="89dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_gravity="center"-->
+            <!--android:gravity="center_vertical|center_horizontal"-->
+            <!--android:text="@string/date_text" />-->
+
+        <!--<DatePicker-->
+            <!--android:id="@+id/datePicker1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:calendarViewShown="false" />-->
+
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+        <!--android:layout_width="360dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:orientation="horizontal">-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button_cancel"-->
+            <!--android:layout_width="180dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/button_cancel" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/button_add"-->
+            <!--android:layout_width="180dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/button_add" />-->
+    <!--</LinearLayout>-->
+
+<!--</LinearLayout>-->

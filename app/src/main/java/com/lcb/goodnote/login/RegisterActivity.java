@@ -12,11 +12,15 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.lcb.goodnote.R;
+import com.lcb.goodnote.activityManger.BaseActivity;
 import com.lcb.goodnote.db.UserData;
 
 import org.litepal.LitePal;
 
-public class RegisterActivity extends Activity {
+import java.util.List;
+
+public class RegisterActivity extends BaseActivity {
+
 
 
     private SharedPreferences register_sp;
@@ -51,13 +55,24 @@ public class RegisterActivity extends Activity {
                 .setPositiveButton("确定", new  DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //将用户名和密码保存到数据库litepal
+                        if (checkIfReSave(username)){//重复
+                            Toast.makeText(RegisterActivity.this,"此用户名已被注册，请更换。",Toast.LENGTH_SHORT).show();
+                            return;
+                        }else {
+                            //将用户名信息保存在数据库中
+                            UserData userData = new UserData();
+                            userData.setUser_name(username);
+                            userData.setPass_word(password);
+                            userData.save();
+                        }
+
                         //保存输入的信息     edit.commit();提交
                         register_sp=getSharedPreferences("userInfo",MODE_PRIVATE);
-
                         Editor edit=register_sp.edit();
                         edit.putString("username", username);
                         edit.putString("password", password);
-                        edit.commit();
+                        edit.apply();
                         //提示成功注册
                         Toast.makeText(RegisterActivity.this, "恭喜，注册成功", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -76,6 +91,16 @@ public class RegisterActivity extends Activity {
     public void onLogin(View v){
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
         startActivity(intent);
+    }
+    private boolean checkIfReSave(String newName)
+    {
+        List<UserData> users = LitePal.findAll(UserData.class);
+        for (UserData user:users){
+            if (user.getUser_name().equals(newName)){
+                return true;//重复
+            }
+        }
+        return false;//不重复
     }
 
 }

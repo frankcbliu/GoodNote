@@ -17,8 +17,13 @@
             android:layout_gravity="top|left"
             android:layout_margin="10dp"
             android:textSize="12sp"/>
+        <!--<EditText-->
+            <!--android:id="@+id/edit_note_title"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center"/>-->
         <TextView
-            android:id="@+id/note_name"
+            android:id="@+id/note_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

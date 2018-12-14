@@ -1,8 +1,12 @@
 package com.lcb.goodnote;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.renderscript.Long3;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.content.DialogInterface;
 import android.database.Cursor;
@@ -27,9 +31,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lcb.goodnote.activityManger.BaseActivity;
+import com.lcb.goodnote.db.UserData;
 import com.lcb.goodnote.login.LoginActivity;
+import com.lcb.goodnote.login.RegisterActivity;
+
+import org.litepal.LitePal;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -43,7 +53,7 @@ import java.util.Random;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final String TAG = "MainActivity";
     private DrawerLayout mDrawerLayout;
@@ -62,27 +72,35 @@ public class MainActivity extends AppCompatActivity {
     public static final int GET_PHOTO = 4;
     private ImageView headImage;
     private Uri imageUri;
+    //修改用户名
+    private NavigationView navView;
+    private TextView username;
 
 
     //登陆与退出功能
-    private CheckBox cb_auto;
+    private SharedPreferences back_login;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
         //上方标题栏
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //滑动菜单栏
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
+        navView = (NavigationView) findViewById(R.id.nav_view);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar!=null){
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
+
         }
+        changeUserName();
+
 
 //        navView.setCheckedItem(R.id.nav_task);//设置task为默认选中
         navView.setNavigationItemSelectedListener(
@@ -94,8 +112,11 @@ public class MainActivity extends AppCompatActivity {
                                 changeImage();
                                 break;
                             case R.id.nav_task:
-                                Intent intent2 = new Intent(MainActivity.this,AddActivity.class);
-                                startActivity(intent2);
+
+//                                break;
+//                            case R.id.nav_friends:
+//                                showUserData();
+
                         }
                         mDrawerLayout.closeDrawers();
                         return true;
@@ -109,13 +130,16 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view,"Data delete",Snackbar.LENGTH_SHORT)
-                        .setAction("取消", new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                Toast.makeText(MainActivity.this,"Data restored",Toast.LENGTH_SHORT).show();
-                            }
-                        }).show();
+                Intent intent = new Intent(MainActivity.this, AddActivity.class);
+                startActivity(intent);
+//                Snackbar.make(view,"Data delete",Snackbar.LENGTH_SHORT)
+//                        .setAction("取消", new View.OnClickListener() {
+//                            @Override
+//                            public void onClick(View view) {
+//
+//                                Toast.makeText(MainActivity.this,"Data restored",Toast.LENGTH_SHORT).show();
+//                            }
+//                        }).show();
                 // Toast.makeText(MainActivity.this,"FAB clicked",Toast.LENGTH_SHORT).show();
             }
         });
@@ -127,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutmanger);
         adapter = new NoteAdapter(noteList);
         recyclerView.setAdapter(adapter);
-
 
 
     }
@@ -155,7 +178,14 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(this,"You click Settings.",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.exit:
-                //待完成，退出账号功能
+                //退出账号功能
+                back_login = getSharedPreferences("back_login",MODE_PRIVATE);
+                SharedPreferences.Editor editor = back_login.edit();
+                editor.putBoolean("back_login", false);
+                editor.apply();
+                //强制下线广播
+                Intent intent = new Intent("com.lcb.goodnote.activityManger.FORCE_OFFLINE");
+                sendBroadcast(intent);
             default:
         }
         return true;
@@ -191,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if (Build.VERSION.SDK_INT >=24){
                             imageUri = FileProvider.getUriForFile(MainActivity.this,
-                                    "com.example.cameraalbumtest.fileprovider",outputImage);
+                                    "com.lcb.goodnote.fileprovider",outputImage);
                         }else {
                             imageUri = Uri.fromFile(outputImage);
                         }
@@ -304,6 +334,25 @@ public class MainActivity extends AppCompatActivity {
         return Environment.getExternalStorageDirectory() + "/DCIM/";
     }
 
+    private void changeUserName(){
+        //获取同户名
+        String user_name = getSharedPreferences("userInfo",Activity.MODE_PRIVATE).getString("username","");
+        //打印日志
+        Log.d(TAG,"user name = "+user_name);
+        //修改用户名
+        View headview = navView.getHeaderView(0);
+        username = (TextView)headview.findViewById(R.id.username);
+        username.setText("用户名："+user_name);
+    }
 
+    private void showUserData()
+    {
+        List<UserData> users = LitePal.findAll(UserData.class);
+        for (UserData user:users){
+            Log.d(TAG,"ID: "+user.getId());
+            Log.d(TAG,"UserName: "+user.getUser_name().toString());
+            Log.d(TAG,"PassWord: "+user.getPass_word().toString());
+        }
+    }
 }
 

@@ -15,4 +15,10 @@
     <string name="hint_login_password">输入密码</string>
     <string name="hint_login_username">输入用户名</string>
     <string name="please_input_limit_pwd">请输入数字或字母</string>
+
+    <!-- navigation header-->
+    <string name="user_name">%1$s</string>
+    <!-- note -->
+    <string name="note_title_string">请输入活动标题</string>
+    <string name="note_content_string">请输入活动内容</string>
 </resources>

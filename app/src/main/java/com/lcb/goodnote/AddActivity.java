@@ -1,6 +1,6 @@
 package com.lcb.goodnote;
 
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,14 +8,14 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import com.lcb.goodnote.activityManger.BaseActivity;
 import com.lcb.goodnote.db.ActivityData;
 
 import org.litepal.LitePal;
-
 import java.util.Calendar;
 import java.util.List;
 
-public class AddActivity extends AppCompatActivity implements DatePicker.OnDateChangedListener{
+public class AddActivity extends BaseActivity implements DatePicker.OnDateChangedListener{
 
     private static final String TAG = "AddActivity";
     private DatePicker datePicker1;
@@ -28,14 +28,12 @@ public class AddActivity extends AppCompatActivity implements DatePicker.OnDateC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        LitePal.initialize(this);
-//        setContentView(R.layout.activity_add);
-
         setContentView(R.layout.activity_add);
+        LitePal.initialize(this);
         init();
+
 //        button_create= (Button) findViewById(R.id.button_create);
         setTitle("时间日期控件测试");
-
 
         button_add.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +75,7 @@ public class AddActivity extends AppCompatActivity implements DatePicker.OnDateC
 
     }
 
-    public void init(){
+    private void init(){
         /**
          * 添加活动界面
          */
@@ -99,7 +97,6 @@ public class AddActivity extends AppCompatActivity implements DatePicker.OnDateC
         mDay = c.get(Calendar.DAY_OF_MONTH);
         //初始化日期，并设置日期被改变后的监听事件
         datePicker1.init(mYear, mMonth, mDay, this);
-
 
     }
 
