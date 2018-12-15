@@ -63,6 +63,8 @@ public class AddActivity extends BaseActivity implements DatePicker.OnDateChange
                 Log.d(TAG,"db:activity: "+activityData.toString());
                 Log.d(TAG,"--------------------------------------");
                 finish();//结束当前活动
+                Intent intent = new Intent(AddActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
 

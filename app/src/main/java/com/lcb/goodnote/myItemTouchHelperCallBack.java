@@ -2,6 +2,7 @@ package com.lcb.goodnote;
 
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 
 public class myItemTouchHelperCallBack extends ItemTouchHelper.Callback{
     private ItemTouchHelperAdapter itemTouchHelperAdapter;

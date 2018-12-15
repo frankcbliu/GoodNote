@@ -1,5 +1,6 @@
 package com.lcb.goodnote;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.provider.ContactsContract;
@@ -12,6 +13,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.lcb.goodnote.db.ActivityData;
+
+import org.litepal.LitePal;
 
 import java.util.Collections;
 import java.util.List;
@@ -90,6 +94,13 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>
     @Override
     public void onItemDelete(int position) {
         //移除数据
+        Note note = mNoteList.get(position);
+        List<ActivityData> list = LitePal.findAll(ActivityData.class);
+        for (ActivityData data:list){
+            if (note.getActivity_theme().equals(data.getActivity_theme())){
+                data.delete();//删除数据
+            }
+        }
         mNoteList.remove(position);
         notifyItemRemoved(position);
     }

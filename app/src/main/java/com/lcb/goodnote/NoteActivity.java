@@ -84,6 +84,8 @@ public class NoteActivity extends BaseActivity implements DatePicker.OnDateChang
                 Log.d(TAG,"id: "+thisID);
                 Log.d(TAG,"address: "+address+"t_address: "+temp_address);
                 finish();
+                Intent intent = new Intent(NoteActivity.this,MainActivity.class);
+                startActivity(intent);
             }
         });
 
