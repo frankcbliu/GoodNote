@@ -2,6 +2,7 @@ package com.lcb.goodnote;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -26,11 +27,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
         CardView cardView;
         TextView notename;
         TextView notedate;
+
         public ViewHolder(View view){
             super(view);
             cardView = (CardView) view;
-            notename = (TextView) view.findViewById(R.id.note_title);//利用列表id作为title
-            notedate = (TextView) view.findViewById(R.id.note_time);
+            notename = (TextView) view.findViewById(R.id.note_item_tv_title);//利用列表id作为title
+            notedate = (TextView) view.findViewById(R.id.note_item_tv_time);
         }
     }
     public NoteAdapter(List<Note> noteList){
@@ -50,8 +52,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
                 int position = holder.getAdapterPosition();
                 Note note = mNoteList.get(position);
                 Intent intent = new Intent(mContext,NoteActivity.class);
-                intent.putExtra(NoteActivity.NOTE_NAME, note.getName());
+                intent.putExtra(NoteActivity.NOTE_NAME,note.getName());
                 intent.putExtra(NoteActivity.NOTE_IMAGE_ID,note.getNodeId());
+                intent.putExtra(NoteActivity.ACTIVITY_ID,note.getId());
+                intent.putExtra(NoteActivity.NOTE_CONTENT,note.getActivity_content());
+                intent.putExtra(NoteActivity.NOTE_THEME,note.getActivity_theme());
+                intent.putExtra(NoteActivity.NOTE_ADDRESS,note.getActivity_address());
+                intent.putExtra(NoteActivity.NOTE_YEAR,note.getActivity_year());
+                intent.putExtra(NoteActivity.NOTE_MONTH,note.getActivity_month());
+                intent.putExtra(NoteActivity.NOTE_DAY,note.getActivity_day());
+
                 mContext.startActivity(intent);
             }
         });

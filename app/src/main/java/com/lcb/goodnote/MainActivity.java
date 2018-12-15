@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.renderscript.Long3;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +36,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lcb.goodnote.activityManger.BaseActivity;
+import com.lcb.goodnote.db.ActivityData;
 import com.lcb.goodnote.db.UserData;
 import com.lcb.goodnote.login.LoginActivity;
 import com.lcb.goodnote.login.RegisterActivity;
@@ -59,11 +61,10 @@ public class MainActivity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
 
     //note list 内容
-    private Note[] notes = {new Note("Note1","2018-12-6"),new Note("Note2","2018-12-11"),
-            new Note("I'm Three","2018-12-12"),new Note("I'm 4","2018-1d-6"),new Note("I'm Three5","2018-10-6"),new Note("Note 6","2018-11-6")};
-
+    private String currentUserName;
     private List<Note> noteList = new ArrayList<>();
     private NoteAdapter adapter;
+    private Note[] notes = {new Note("note1","2017-02-05"),new Note("notr2","45")};
 
 
 
@@ -76,9 +77,11 @@ public class MainActivity extends BaseActivity {
     private NavigationView navView;
     private TextView username;
 
-
     //登陆与退出功能
     private SharedPreferences back_login;
+
+    //下拉刷新
+    private SwipeRefreshLayout swipeRefresh;
 
 
     @Override
@@ -87,6 +90,9 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
 
+        //下拉刷新
+        swipeRefresh = (SwipeRefreshLayout) findViewById(R.id.swipe_refresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         //上方标题栏
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -123,6 +129,7 @@ public class MainActivity extends BaseActivity {
                     }
                 }
 
+
         );
 
         //悬浮按钮点击事件
@@ -152,8 +159,14 @@ public class MainActivity extends BaseActivity {
         adapter = new NoteAdapter(noteList);
         recyclerView.setAdapter(adapter);
 
-
-    }
+//        下拉刷新
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshNote();
+            }
+        });
+    }//onCreate
 
     //加载toolbar.xml -- 菜单文件
     public boolean onCreateOptionsMenu(Menu menu){
@@ -193,11 +206,40 @@ public class MainActivity extends BaseActivity {
     //初始化笔记note
     private void initNotes(){
         noteList.clear();
-        for (int i = 0; i < 15; i++) {
-            Random random = new Random();
-            int index = random.nextInt(notes.length);
-            noteList.add(notes[index]);
+        //当前用户名
+        currentUserName = getSharedPreferences("userInfo",Activity.MODE_PRIVATE).getString("username","");
+        List<ActivityData> list = LitePal.findAll(ActivityData.class);
+        for (ActivityData data:list){
+            if (data.getUsername().equals(currentUserName)){//判断是否当前用户名
+                String date = data.getActivity_year()+"-"+data.getActivity_month()+"-"+data.getActivity_day();
+                Note note = new Note(data.getActivity_theme(),date,data);
+                noteList.add(note);
+            }
         }
+        showUserData();
+
+    }
+
+    private void refreshNote(){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try{
+                    Thread.sleep(2000);
+                }catch (InterruptedException e){
+                    e.printStackTrace();
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        initNotes();
+                        adapter.notifyDataSetChanged();
+                        swipeRefresh.setRefreshing(false);
+                    }
+                });
+            }
+
+        }).start();
     }
 
     public void changeImage(){//修改头像功能
@@ -338,7 +380,7 @@ public class MainActivity extends BaseActivity {
         //获取同户名
         String user_name = getSharedPreferences("userInfo",Activity.MODE_PRIVATE).getString("username","");
         //打印日志
-        Log.d(TAG,"user name = "+user_name);
+//        Log.d(TAG,"user name = "+user_name);
         //修改用户名
         View headview = navView.getHeaderView(0);
         username = (TextView)headview.findViewById(R.id.username);
@@ -352,6 +394,11 @@ public class MainActivity extends BaseActivity {
             Log.d(TAG,"ID: "+user.getId());
             Log.d(TAG,"UserName: "+user.getUser_name().toString());
             Log.d(TAG,"PassWord: "+user.getPass_word().toString());
+            Log.d(TAG,user.getActivities().toString());
+        }
+        List<ActivityData> list = LitePal.findAll(ActivityData.class);
+        for (ActivityData data:list){
+            Log.d(TAG,"id: "+data.getId()+" "+data.toString());
         }
     }
 }

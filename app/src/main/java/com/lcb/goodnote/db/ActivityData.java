@@ -6,13 +6,14 @@ import org.litepal.crud.LitePalSupport;
 
 public class ActivityData extends LitePalSupport {
 
-    private int id;
+    private int id;//id从1开始自增
+    private String username;
     private String activity_theme;//活动主题
     private String activity_content;//活动内容
     private String activity_address;//活动地点
-    private String activity_year;//年
-    private String activity_month;//月 控件中获取的是0-11，此处保存为1-12
-    private String activity_day;//天
+    private int activity_year;//年
+    private int activity_month;//月 控件中获取的是0-11，此处保存为1-12
+    private int activity_day;//天
 
     public int getId() {
         return id;
@@ -46,38 +47,49 @@ public class ActivityData extends LitePalSupport {
         this.activity_address = activity_address;
     }
 
-    public String getActivity_year() {
+    public int getActivity_year() {
         return activity_year;
     }
 
-    public void setActivity_year(String activity_year) {
+    public void setActivity_year(int activity_year) {
         this.activity_year = activity_year;
     }
 
-    public String getActivity_month() {
+    public int getActivity_month() {
         return activity_month;
     }
 
-    public void setActivity_month(String activity_month) {
+    public void setActivity_month(int activity_month) {
         this.activity_month = activity_month;
     }
 
-    public String getActivity_day() {
+    public int getActivity_day() {
         return activity_day;
     }
 
-    public void setActivity_day(String activity_day) {
+    public void setActivity_day(int activity_day) {
         this.activity_day = activity_day;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
     public String toString() {
         return "ActivityData{" +
-                "activity_theme='" + activity_theme + '\'' +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", activity_theme='" + activity_theme + '\'' +
+                ", activity_content='" + activity_content + '\'' +
                 ", activity_address='" + activity_address + '\'' +
-                ", activity_year='" + activity_year + '\'' +
-                ", activity_month='" + activity_month + '\'' +
-                ", activity_day='" + activity_day + '\'' +
+                ", activity_year=" + activity_year +
+                ", activity_month=" + activity_month +
+                ", activity_day=" + activity_day +
                 '}';
     }
 }

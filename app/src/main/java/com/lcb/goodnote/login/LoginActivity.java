@@ -36,6 +36,8 @@ public class LoginActivity extends BaseActivity {
     private boolean isAutoLogin;//自动登陆
     public static boolean isNotExit;//退出
 
+    private String currentUserName;//当前用户名
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
