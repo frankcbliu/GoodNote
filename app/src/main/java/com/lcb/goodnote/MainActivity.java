@@ -1,8 +1,12 @@
 package com.lcb.goodnote;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.support.v7.widget.helper.ItemTouchHelper;
@@ -274,10 +278,13 @@ public class MainActivity extends BaseActivity {
                         startActivityForResult(intent,TAKE_PHOTO);
                         break;
                     case "从图库选择":
-                        Intent i = new Intent(
-                                Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                        startActivityForResult(i, GET_PHOTO);
-
+                        //添加运行时权限，否则会报错
+                        if (ContextCompat.checkSelfPermission(MainActivity.this,Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED){
+                            ActivityCompat.requestPermissions(MainActivity.this,new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},1);
+                        }else {
+                            Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                            startActivityForResult(i, GET_PHOTO);
+                        }
                 }
             }
         }).setNegativeButton("取消", null).create().show();
@@ -301,6 +308,7 @@ public class MainActivity extends BaseActivity {
         }else if(requestCode == GET_PHOTO) {
             //从图库选择照片
             try {
+//            Log.d(TAG,"photo_by_get");
                 if(data.getData() != null) {  //不选中直接返回
                     Uri selectedImage = data.getData();
                     String[] filePathColumn = {MediaStore.Images.Media.DATA};
