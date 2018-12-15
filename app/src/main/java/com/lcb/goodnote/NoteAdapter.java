@@ -13,13 +13,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
  * Created by q6412 on 2018/12/6.
  */
 
-public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
+public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>
+        implements  ItemTouchHelperAdapter{
     private Context mContext;
     private List<Note> mNoteList;
 
@@ -76,5 +78,19 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder>{
 
     public int getItemCount(){
         return mNoteList.size();
+    }
+
+    @Override
+    public void onItemMove(int fromPosition, int toPosition) {
+        //交换位置
+        Collections.swap(mNoteList,fromPosition,toPosition);
+        notifyItemMoved(fromPosition,toPosition);
+    }
+
+    @Override
+    public void onItemDelete(int position) {
+        //移除数据
+        mNoteList.remove(position);
+        notifyItemRemoved(position);
     }
 }

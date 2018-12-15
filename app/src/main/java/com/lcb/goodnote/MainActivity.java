@@ -7,6 +7,7 @@ import android.renderscript.Long3;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.View;
 import android.content.DialogInterface;
@@ -67,7 +68,6 @@ public class MainActivity extends BaseActivity {
     private Note[] notes = {new Note("note1","2017-02-05"),new Note("notr2","45")};
 
 
-
     //调用相机
     public static final int TAKE_PHOTO = 3;
     public static final int GET_PHOTO = 4;
@@ -82,6 +82,8 @@ public class MainActivity extends BaseActivity {
 
     //下拉刷新
     private SwipeRefreshLayout swipeRefresh;
+    //删除、拖动
+    private RecyclerView mRecyclerView;
 
 
     @Override
@@ -166,6 +168,12 @@ public class MainActivity extends BaseActivity {
                 refreshNote();
             }
         });
+
+        //删除、拖动
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        ItemTouchHelper.Callback callback = new myItemTouchHelperCallBack(adapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mRecyclerView);
     }//onCreate
 
     //加载toolbar.xml -- 菜单文件
@@ -225,7 +233,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void run() {
                 try{
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 }catch (InterruptedException e){
                     e.printStackTrace();
                 }

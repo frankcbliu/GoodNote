@@ -42,9 +42,6 @@
         </android.support.v4.widget.SwipeRefreshLayout>
 
 
-
-
-
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatAButton"
             android:layout_width="wrap_content"
