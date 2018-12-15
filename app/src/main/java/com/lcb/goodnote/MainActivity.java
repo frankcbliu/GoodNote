@@ -3,9 +3,7 @@ package com.lcb.goodnote;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.renderscript.Long3;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
@@ -20,7 +18,6 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -31,7 +28,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,8 +35,6 @@ import android.widget.Toast;
 import com.lcb.goodnote.activityManger.BaseActivity;
 import com.lcb.goodnote.db.ActivityData;
 import com.lcb.goodnote.db.UserData;
-import com.lcb.goodnote.login.LoginActivity;
-import com.lcb.goodnote.login.RegisterActivity;
 
 import org.litepal.LitePal;
 
@@ -50,7 +44,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 
 
@@ -65,7 +58,7 @@ public class MainActivity extends BaseActivity {
     private String currentUserName;
     private List<Note> noteList = new ArrayList<>();
     private NoteAdapter adapter;
-    private Note[] notes = {new Note("note1","2017-02-05"),new Note("notr2","45")};
+//    private Note[] notes = {new Note("note1","2017-02-05"),new Note("notr2","45")};
 
 
     //调用相机
