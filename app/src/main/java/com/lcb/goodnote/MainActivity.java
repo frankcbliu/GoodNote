@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -37,6 +38,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lcb.goodnote.Course.CourseActivity;
+import com.lcb.goodnote.Course.CourseInit;
 import com.lcb.goodnote.activityManger.BaseActivity;
 import com.lcb.goodnote.db.ActivityData;
 import com.lcb.goodnote.db.CourseData;
@@ -122,8 +124,7 @@ public class MainActivity extends BaseActivity {
                             case R.id.nav_task://我的课表
                                 Intent intent = new Intent(MainActivity.this, CourseActivity.class);
                                 startActivity(intent);
-
-//                                break;
+                                break;
                             case R.id.nav_friends://修改密码
                                 Intent intent_c_psw = new Intent(MainActivity.this,ChangePWActivity.class);
                                 startActivity(intent_c_psw);
@@ -145,14 +146,6 @@ public class MainActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, AddActivity.class);
                 startActivity(intent);
-//                Snackbar.make(view,"Data delete",Snackbar.LENGTH_SHORT)
-//                        .setAction("取消", new View.OnClickListener() {
-//                            @Override
-//                            public void onClick(View view) {
-//
-//                                Toast.makeText(MainActivity.this,"Data restored",Toast.LENGTH_SHORT).show();
-//                            }
-//                        }).show();
                 // Toast.makeText(MainActivity.this,"FAB clicked",Toast.LENGTH_SHORT).show();
             }
         });
@@ -194,11 +187,28 @@ public class MainActivity extends BaseActivity {
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
             case R.id.backup:
-                showUserData();
-                Toast.makeText(this,"You click Backup.",Toast.LENGTH_SHORT).show();
+//                showUserData();
+                CourseInit courseInit = new CourseInit();
+
+                Toast.makeText(this,"恢复课程.",Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.delete:
-                Toast.makeText(this,"You click Delete.",Toast.LENGTH_SHORT).show();
+            case R.id.delete://删除所有课程
+                Snackbar.make(mRecyclerView,"你将会清空所有课程和活动，是否继续？",Snackbar.LENGTH_LONG)
+                        .setAction("确定", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                List<CourseData> courseDataList = LitePal.findAll(CourseData.class);
+                                for (int i = 0; i < courseDataList.size(); i++) {
+                                    courseDataList.get(i).delete();
+                                }
+                                List<ActivityData> activityData = LitePal.findAll(ActivityData.class);
+                                for (int i = 0; i < activityData.size(); i++) {
+                                    activityData.get(i).delete();
+                                }
+                                Toast.makeText(MainActivity.this,"成功清空所有课程表",Toast.LENGTH_SHORT).show();
+                                refreshNote();
+                            }
+                        }).show();
                 break;
             case R.id.settings:
                 Toast.makeText(this,"You click Settings.",Toast.LENGTH_SHORT).show();

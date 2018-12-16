@@ -43,13 +43,13 @@
             android:padding="16dp"
             android:src="@drawable/ic_edit_week" />
 
-        <TextView
-            android:id="@+id/et_weeks"
+        <EditText
+            android:id="@+id/add_course_weeks_et"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="周数"
+            android:hint="周数，如：1-10"
             android:lines="1"
             android:ellipsize="end"
             android:textSize="14sp" />
@@ -61,6 +61,7 @@
         android:alpha="0.5"
         android:layout_marginLeft="56dp"
         android:background="@color/app_panel_bg" />
+
 
     <LinearLayout
         android:id="@+id/ll_time"
@@ -75,14 +76,14 @@
             android:padding="16dp"
             android:src="@drawable/ic_edit_time" />
 
-        <TextView
-            android:id="@+id/et_time"
+        <EditText
+            android:id="@+id/add_course_day_et"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginTop="1dp"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="周一    第1 - 2节"
+            android:hint="周一，请输入：1"
             android:lines="1"
             android:textSize="14sp" />
     </LinearLayout>
@@ -94,6 +95,41 @@
         android:alpha="0.5"
         android:layout_marginLeft="56dp"
         android:background="@color/app_panel_bg" />
+
+    <!--新增-->
+    <LinearLayout
+        android:id="@+id/ll_time_new"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp">
+
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="1dp"
+            android:padding="16dp"
+            android:src="@drawable/ic_edit_time" />
+
+        <EditText
+            android:id="@+id/add_course_start_step_et"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginTop="1dp"
+            android:background="@null"
+            android:gravity="center_vertical"
+            android:hint="第1 - 2节，请输入：1-2"
+            android:lines="1"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:alpha="0.5"
+        android:layout_marginLeft="56dp"
+        android:background="@color/app_panel_bg" />
+    <!---->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -108,7 +144,7 @@
             android:src="@drawable/ic_edit_room" />
 
         <EditText
-            android:id="@+id/et_room"
+            android:id="@+id/add_course_room_et"
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:layout_marginTop="1dp"

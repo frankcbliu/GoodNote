@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.content.DialogInterface;
@@ -21,13 +22,13 @@ import com.zhuangfei.timetable.listener.IWeekView;
 import com.zhuangfei.timetable.listener.OnSlideBuildAdapter;
 import com.zhuangfei.timetable.model.Schedule;
 import com.zhuangfei.timetable.view.WeekView;
-
+import com.lcb.goodnote.Course.CourseInit;
 
 import java.util.List;
 
 public class CourseActivity extends BaseActivity  implements View.OnClickListener{
 
-    private static final String TAG = "BaseFuncActivity";
+    private static final String TAG = "CourseActivity";
 
     //控件
     TimetableView mTimetableView;
@@ -37,6 +38,8 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
     LinearLayout layout;
     TextView titleTextView;
     List<MySubject> mySubjects;
+
+
 
     //记录切换的周次，不一定是当前周
     int target = -1;
@@ -55,8 +58,9 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
             }
         });
 
-        mySubjects = SubjectRepertory.loadDefaultSubjects2();
-        mySubjects.addAll(SubjectRepertory.loadDefaultSubjects());
+        //初始化数据
+        mySubjects = SubjectRepertory.loadByLitePal();
+//        mySubjects.addAll(SubjectRepertory.loadByLitePal());
         titleTextView = findViewById(R.id.id_title);
         layout = findViewById(R.id.id_layout);
         layout.setOnClickListener(this);
@@ -94,7 +98,7 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
 
         mTimetableView.source(mySubjects)
                 .curWeek(1)
-                .curTerm("大三下学期")
+                .curTerm("大二下学期")//大三下
                 .maxSlideItem(10)
                 .monthWidthDp(30)
                 //透明度
@@ -104,14 +108,37 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
                 .callback(new ISchedule.OnItemClickListener() {
                     @Override
                     public void onItemClick(View v, List<Schedule> scheduleList) {
-                        display(scheduleList);
+                        Intent intent = new Intent(CourseActivity.this,ChangeTimeTable.class);
+                        String name = "";
+                        String teacher ="";
+                        String room = "";
+                        String weeks = "";
+                        int start = -1,step=-1,day=-1;
+                        for (Schedule s:scheduleList){
+                            name = s.getName();
+                            teacher = s.getTeacher();
+                            start =s.getStart();
+                            room = s.getRoom();
+                            step = s.getStep();
+                            day = s.getDay();
+                            weeks = CourseInit.getWeekListFromInt(s.getWeekList());
+                        }
+                       intent.putExtra(ChangeTimeTable.NAME,name);
+                       intent.putExtra(ChangeTimeTable.START,start);
+                       intent.putExtra(ChangeTimeTable.ROOM,room);
+                       intent.putExtra(ChangeTimeTable.DAY,day);
+                       intent.putExtra(ChangeTimeTable.STEP,step);
+                       intent.putExtra(ChangeTimeTable.TEACHER,teacher);
+                       intent.putExtra(ChangeTimeTable.WEEKS,weeks);
+                        startActivity(intent);
+//                        display(scheduleList);
                     }
                 })
                 .callback(new ISchedule.OnItemLongClickListener() {
                     @Override
                     public void onLongClick(View v, int day, int start) {
                         Toast.makeText(CourseActivity.this,
-                                "长按:周" + day  + ",第" + start + "节",
+                                "长按删除:周" + day  + ",第" + start + "节",
                                 Toast.LENGTH_SHORT).show();
                     }
                 })
@@ -214,37 +241,37 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
                     case R.id.top5:
                         showNonThisWeek();
                         break;
-                    case R.id.top6:
-                        setMaxItem(8);
-                        break;
-                    case R.id.top7:
+                    case R.id.top6://最大节次 10
                         setMaxItem(10);
                         break;
-                    case R.id.top8:
+                    case R.id.top7:
                         setMaxItem(12);
                         break;
-                    case R.id.top9:
-                        showTime();
+                    case R.id.top8://冬令时
+                        showTime("winter");
+                        break;
+                    case R.id.top9://夏令时
+                        showTime("summer");
                         break;
                     case R.id.top10:
                         hideTime();
                         break;
-                    case R.id.top11:
-                        showWeekView();
-                        break;
-                    case R.id.top12:
-                        hideWeekView();
-                        break;
-                    case R.id.top13:
-                        setMonthWidth();
-                        break;
-                    case R.id.top16:
-                        resetMonthWidth();
-                        break;
-                    case R.id.top14:
+//                    case R.id.top11:
+//                        showWeekView();
+//                        break;
+//                    case R.id.top12:
+//                        hideWeekView();
+//                        break;
+//                    case R.id.top13://增大月份宽度
+//                        setMonthWidth();
+//                        break;
+//                    case R.id.top16://恢复月份宽度
+//                        resetMonthWidth();
+//                        break;
+                    case R.id.top14://隐藏周末
                         hideWeekends();
                         break;
-                    case R.id.top15:
+                    case R.id.top15://显示周末
                         showWeekends();
                         break;
                     default:
@@ -340,12 +367,21 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
      * 显示时间
      * 设置侧边栏构建监听，TimeSlideAdapter是控件实现的可显示时间的侧边栏
      */
-    protected void showTime() {
-        String[] times = new String[]{
-                "8:00", "9:00", "10:10", "11:00",
-                "15:00", "16:00", "17:00", "18:00",
-                "19:30", "20:30", "21:30", "22:30"
-        };
+    protected void showTime(String time) {
+        String[] times;
+        if (time.equals("summer")){//夏令时
+            times = new String[]{
+                    "8:30", "9:20", "10:20", "11:00",
+                    "14:30", "15:10", "16:10", "17:00",
+                    "19:00", "19:40", "20:30", "21:10"
+            };
+        }else {//冬令时
+            times = new String[]{
+                    "8:30", "9:20", "10:20", "11:00",
+                    "14:00", "14:40", "15:40", "16:30",
+                    "19:00", "19:40", "20:30", "21:10"
+            };
+        }
         OnSlideBuildAdapter listener = (OnSlideBuildAdapter) mTimetableView.onSlideBuildListener();
         listener.setTimes(times)
                 .setTimeTextColor(Color.BLACK);

@@ -22,7 +22,8 @@
             android:text="取消"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:onClick="onCancel"/>
 
         <TextView
             android:id="@+id/id_tv_title"
@@ -47,7 +48,8 @@
             android:text="保存"
             android:textColor="@color/colorAccent"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:onClick="onSave"/>
 
     </LinearLayout>
 
@@ -74,7 +76,7 @@
                     android:src="@drawable/ic_edit_course" />
 
                 <EditText
-                    android:id="@+id/et_name"
+                    android:id="@+id/add_course_name_et"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="@null"
@@ -109,7 +111,7 @@
                     android:src="@drawable/ic_person" />
 
                 <EditText
-                    android:id="@+id/et_teacher"
+                    android:id="@+id/add_course_teacher_et"
                     android:layout_width="match_parent"
                     android:layout_height="64dp"
                     android:background="@null"
@@ -132,31 +134,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
 
-            <!--<android.support.v7.widget.CardView-->
-                <!--android:id="@+id/cv_add"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="48dp"-->
-                <!--android:layout_marginBottom="32dp"-->
-                <!--android:layout_marginLeft="32dp"-->
-                <!--android:layout_marginRight="32dp"-->
-                <!--android:layout_marginTop="32dp"-->
-                <!--app:cardBackgroundColor="@color/app_blue1"-->
-                <!--app:cardCornerRadius="24dp"-->
-                <!--app:cardElevation="1dp">-->
-
-                <!--<TextView-->
-                    <!--android:id="@+id/id_tv_btn"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:gravity="center"-->
-                    <!--android:text="添加时间段"-->
-                    <!--android:clickable="true"-->
-                    <!--android:onClick="addItemView"-->
-                    <!--android:textColor="@color/app_white" />-->
-
-            <!--</android.support.v7.widget.CardView>-->
             <include layout="@layout/item_add"/>
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

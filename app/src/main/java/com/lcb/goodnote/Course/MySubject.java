@@ -6,7 +6,9 @@ import com.zhuangfei.timetable.model.ScheduleEnable;
 import java.util.List;
 
 public class MySubject implements ScheduleEnable {
-    public static final String EXTRAS_ID="extras_id";
+    public static final String EXTRAS_NAME="extras_name";
+    public static final String EXTRAS_START="extras_start";
+
 
     private int id=0;
 
@@ -164,7 +166,8 @@ public class MySubject implements ScheduleEnable {
         schedule.setTeacher(getTeacher());
         schedule.setWeekList(getWeekList());
         schedule.setColorRandom(2);
-        schedule.putExtras(EXTRAS_ID,getId());
+        schedule.putExtras(EXTRAS_NAME,getName());
+        schedule.putExtras(EXTRAS_START,getStart());
         return schedule;
     }
 
@@ -174,5 +177,22 @@ public class MySubject implements ScheduleEnable {
 
     public int getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "MySubject{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", time='" + time + '\'' +
+                ", room='" + room + '\'' +
+                ", teacher='" + teacher + '\'' +
+                ", weekList=" + weekList +
+                ", start=" + start +
+                ", step=" + step +
+                ", day=" + day +
+                ", term='" + term + '\'' +
+                ", colorRandom=" + colorRandom +
+                '}';
     }
 }

@@ -114,4 +114,8 @@ public class ChangePWActivity extends BaseActivity {
 
 
     }
+
+    public void onBack(View view){
+        finish();
+    }
 }

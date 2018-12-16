@@ -41,8 +41,10 @@
             android:launchMode="singleTask" />
         <activity android:name=".Course.CourseActivity" />
         <activity android:name=".Course.AddTimeTable" />
-        <activity android:name=".login.ChangePWActivity"
-            android:launchMode="singleTask"></activity>
+        <activity
+            android:name=".login.ChangePWActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".Course.ChangeTimeTable"></activity>
     </application>
 
 </manifest>

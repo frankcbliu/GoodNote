@@ -7,12 +7,17 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.lcb.goodnote.R;
+import com.lcb.goodnote.db.CourseData;
 import com.lcb.goodnote.activityManger.BaseActivity;
 
-public class AddTimeTable extends BaseActivity {
+import org.litepal.LitePal;
 
+import java.util.List;
+
+public class ChangeTimeTable extends BaseActivity {
+
+    private String TAG = "ChangeTimeTable";
     private EditText et_name,et_teacher;
     private EditText et_weeks,et_day,et_start_step,et_room;
 
@@ -26,11 +31,42 @@ public class AddTimeTable extends BaseActivity {
     private final String SS_NULL = "ss_null";
     private final String SS_ERROR = "ss_error";
 
+    //传递信息
+    public static final String NAME = "name";
+    public static final String START = "start";
+    public static final String TEACHER = "teacher";
+    public static final String ROOM = "room";
+    public static final String STEP = "step";
+    public static final String DAY ="day";
+    public static final String WEEKS ="weeks";
+
+    private String old_course;
+    private int get_start,get_step;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_time_table);
         init();
+        TextView cancel = (TextView) findViewById(R.id.tv_back);
+        cancel.setText("删除");
+        Intent intent = getIntent();
+        get_start = intent.getIntExtra(START,0);
+        get_step = intent.getIntExtra(STEP,0);
+        et_room.setText(intent.getStringExtra(ROOM));
+        et_day.setText(intent.getIntExtra(DAY,0)+"");
+        et_teacher.setText(intent.getStringExtra(TEACHER));
+        et_weeks.setText(intent.getStringExtra(WEEKS));
+        et_start_step.setText(get_start+"-"+(get_step+get_start-1));
+        et_name.setText(intent.getStringExtra(NAME));
+
+        old_course = "2018-2019学年春,"+et_name.getText().toString()+','+
+                et_teacher.getText().toString()+ ','+
+                "["+ et_weeks.getText().toString() +"]"+','+
+                et_day.getText().toString()+ ','+
+                getSS(et_start_step.getText().toString())+','+
+                et_room.getText().toString();
+//        Toast.makeText(this,old_course,Toast.LENGTH_LONG).show();
     }
 
 
@@ -68,7 +104,7 @@ public class AddTimeTable extends BaseActivity {
         }else if (start_step.equals(SS_ERROR)){
             return SS_ERROR;
         }
-        return "2018-2019学年秋,"+name+','+teacher+','+weeks+','+day+','+start_step+','+room;
+        return "2018-2019学年春,"+name+','+teacher+','+weeks+','+day+','+start_step+','+room;
     }
 
     public void onSave(View view){
@@ -77,40 +113,57 @@ public class AddTimeTable extends BaseActivity {
         //输入错误
         switch (course){
             case NAME_NULL:
-                Toast.makeText(AddTimeTable.this, "课程名不能为空", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangeTimeTable.this, "课程名不能为空", Toast.LENGTH_SHORT).show();
                 return;
             case WEEKS_NULL:
-                Toast.makeText(AddTimeTable.this, "周数不能为空", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangeTimeTable.this, "周数不能为空", Toast.LENGTH_SHORT).show();
                 return;
             case WEEKS_ERROR:
-                Toast.makeText(AddTimeTable.this, "周数输入格式错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangeTimeTable.this, "周数输入格式错误", Toast.LENGTH_SHORT).show();
                 return;
             case DAY_NULL:
-                Toast.makeText(AddTimeTable.this, "周几上课不能为空", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangeTimeTable.this, "周几上课不能为空", Toast.LENGTH_SHORT).show();
                 return;
             case DAY_ERROR:
-                Toast.makeText(AddTimeTable.this, "周几上课输入格式错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangeTimeTable.this, "周几上课输入格式错误", Toast.LENGTH_SHORT).show();
                 return;
             case SS_NULL:
-                Toast.makeText(AddTimeTable.this, "上课节数不能为空", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangeTimeTable.this, "上课节数不能为空", Toast.LENGTH_SHORT).show();
                 return;
             case SS_ERROR:
-                Toast.makeText(AddTimeTable.this, "上课节数输入错误", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChangeTimeTable.this, "上课节数输入错误", Toast.LENGTH_SHORT).show();
                 return;
         }
 
         //保存课程
-        CourseInit.loadCourses(course);
+        updateCourse(course);
         finish();
-        Intent intent = new Intent(AddTimeTable.this,CourseActivity.class);
+        Intent intent = new Intent(ChangeTimeTable.this,CourseActivity.class);
         startActivity(intent);
     }
 
-    public void onCancel(View view){
-
+    /**
+     * 更新课程
+     * @param newCourse
+     * @return
+     */
+    private CourseData updateCourse(String newCourse){
+//        old_course
+        CourseData course = new CourseData();
+        course.setTerm(CourseInit.getTerm(newCourse));
+        course.setName(CourseInit.getName(newCourse));
+        course.setTeacher(CourseInit.getTeacher(newCourse));
+        course.setWeekList(CourseInit.getWeekList(newCourse));
+        course.setDay(CourseInit.getDay(newCourse));
+        course.setStart(CourseInit.getStart(newCourse));
+        course.setStep(CourseInit.getStep(newCourse));
+        course.setRoom(CourseInit.getRoom(newCourse));
+        course.updateAll("name = ? and day = ? and start = ?", CourseInit.getName(old_course), ""+CourseInit.getDay(old_course), ""+CourseInit.getStart(old_course));
+        return course;
+    }
+    public void onCancel(View view){//删除
+        Toast.makeText(ChangeTimeTable.this,"删除",Toast.LENGTH_SHORT).show();
         finish();
-        Intent intent = new Intent(AddTimeTable.this,CourseActivity.class);
-        startActivity(intent);
     }
     /**
      * 获取周数
@@ -139,7 +192,6 @@ public class AddTimeTable extends BaseActivity {
 
     private String getSS(String start_step){
         String[] num = start_step.split("[-]");
-        String res = "";
         if (num.length==2){
             int length = Integer.parseInt(num[1]) - Integer.parseInt(num[0])+1;
             return num[0]+","+length;
