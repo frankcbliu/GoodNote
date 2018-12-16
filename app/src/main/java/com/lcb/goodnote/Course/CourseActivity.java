@@ -228,12 +228,12 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
         popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()) {
-                    case R.id.top1:
-                        addSubject();
-                        break;
-                    case R.id.top2:
-                        deleteSubject();
-                        break;
+//                    case R.id.top1:
+//                        addSubject();
+//                        break;
+//                    case R.id.top2:
+//                        deleteSubject();
+//                        break;
 
                     case R.id.top4:
                         hideNonThisWeek();

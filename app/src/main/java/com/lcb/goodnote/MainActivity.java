@@ -39,11 +39,13 @@ import android.widget.Toast;
 
 import com.lcb.goodnote.Course.CourseActivity;
 import com.lcb.goodnote.Course.CourseInit;
+import com.lcb.goodnote.activityManger.ActivityCollector;
 import com.lcb.goodnote.activityManger.BaseActivity;
 import com.lcb.goodnote.db.ActivityData;
 import com.lcb.goodnote.db.CourseData;
 import com.lcb.goodnote.db.UserData;
 import com.lcb.goodnote.login.ChangePWActivity;
+import com.lcb.goodnote.server.LongRunningService;
 
 import org.litepal.LitePal;
 
@@ -69,6 +71,8 @@ public class MainActivity extends BaseActivity {
     private NoteAdapter adapter;
 //    private Note[] notes = {new Note("note1","2017-02-05"),new Note("notr2","45")};
 
+
+    public static int TIME; //记录时间间隔
 
     //调用相机
     public static final int TAKE_PHOTO = 3;
@@ -128,8 +132,11 @@ public class MainActivity extends BaseActivity {
                             case R.id.nav_friends://修改密码
                                 Intent intent_c_psw = new Intent(MainActivity.this,ChangePWActivity.class);
                                 startActivity(intent_c_psw);
-//                                showUserData();
-
+                                break;
+                            case R.id.nav_exit://退出程序
+                                ActivityCollector.finishAll();
+                                android.os.Process.killProcess(android.os.Process.myPid());
+                                break;
                         }
                         mDrawerLayout.closeDrawers();
                         return true;
@@ -189,8 +196,18 @@ public class MainActivity extends BaseActivity {
             case R.id.backup:
 //                showUserData();
                 CourseInit courseInit = new CourseInit();
-
-                Toast.makeText(this,"恢复课程.",Toast.LENGTH_SHORT).show();
+                ActivityData activityData = new ActivityData();
+                currentUserName = getSharedPreferences("userInfo",Activity.MODE_PRIVATE).getString("username","");
+                activityData.setUsername(currentUserName);
+                activityData.setActivity_theme("实验室搬砖");
+                activityData.setActivity_address("信工楼N106");
+                activityData.setActivity_content("做项目、预习期末考试科目");
+                activityData.setActivity_year(2018);
+                activityData.setActivity_month(12);
+                activityData.setActivity_day(19);
+                activityData.save();
+                refreshNote();
+                Toast.makeText(this,"初始化预设课程和活动.",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.delete://删除所有课程
                 Snackbar.make(mRecyclerView,"你将会清空所有课程和活动，是否继续？",Snackbar.LENGTH_LONG)
@@ -211,7 +228,18 @@ public class MainActivity extends BaseActivity {
                         }).show();
                 break;
             case R.id.settings:
-                Toast.makeText(this,"You click Settings.",Toast.LENGTH_SHORT).show();
+                Intent startIntent = new Intent(this,LongRunningService.class);
+                TIME = Integer.parseInt("1");
+                //通过Intent将时间间隔传递给Service
+                startIntent.putExtra("Time",TIME);
+//                Toast.makeText(MainActivity.this,"开始提醒",Toast.LENGTH_SHORT).show();
+                startService(startIntent);
+                Toast.makeText(this,"打开提醒功能.",Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.close:
+                Intent stopIntent = new Intent(this,LongRunningService.class);
+                Toast.makeText(MainActivity.this,"关闭提醒功能",Toast.LENGTH_SHORT).show();
+                stopService(stopIntent);
                 break;
             case R.id.exit:
                 //退出账号功能

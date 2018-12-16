@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lcb.goodnote.MainActivity;
 import com.lcb.goodnote.R;
 import com.lcb.goodnote.activityManger.BaseActivity;
 
@@ -101,16 +102,18 @@ public class AddTimeTable extends BaseActivity {
 
         //保存课程
         CourseInit.loadCourses(course);
-        finish();
-        Intent intent = new Intent(AddTimeTable.this,CourseActivity.class);
-        startActivity(intent);
+        return;
+//        finish();
+//        Intent intent = new Intent(AddTimeTable.this,CourseActivity.class);
+//        startActivity(intent);
     }
 
     public void onCancel(View view){
 
-        finish();
-        Intent intent = new Intent(AddTimeTable.this,CourseActivity.class);
-        startActivity(intent);
+        return;
+//        finish();
+//        Intent intent = new Intent(AddTimeTable.this,CourseActivity.class);
+//        startActivity(intent);
     }
     /**
      * 获取周数

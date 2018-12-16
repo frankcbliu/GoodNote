@@ -32,10 +32,16 @@ public class CourseInit {
         //init strings
         String s1 = "2018-2019学年春,数据库系统（实验）,庄华,[1.2.3.4.5],1,7,2,计软楼实验室326";
         String s2 = "2018-2019学年春,数据库系统,庄华,[1.2.3.4.5],3,3,2,教学楼A208";
+        String s3 = "2018-2019学年春,数据结构（实验）,张艳,[1.2.3.4.5.6.7],2,5,4,计软楼325";
+        String s4 = "2018-2019学年春,数据结构,张艳,[1.3.5.7],2,1,2,理工楼L1-606";
         strings.add(s1);
         strings.add(s2);
+        strings.add(s3);
+        strings.add(s4);
         loadCourses(s1);//将字符串加入数据库中
         loadCourses(s2);
+        loadCourses(s3);
+        loadCourses(s4);
     }
 
     /**

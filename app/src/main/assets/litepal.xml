@@ -2,7 +2,7 @@
 <litepal>
     <!-- 注意拼写检查-->
     <dbname value='NoteStore'></dbname>
-    <version value='6'></version>
+    <version value='7'></version>
     <list>
         <mapping class='com.lcb.goodnote.db.UserData'></mapping>
         <mapping class='com.lcb.goodnote.db.ActivityData'></mapping>

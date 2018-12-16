@@ -14,5 +14,9 @@
             android:id="@+id/nav_task"
             android:icon="@drawable/nav_task"
             android:title="@string/menu_nav_course"/>
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_exit"
+            android:title="退出程序"/>
     </group>
 </menu>

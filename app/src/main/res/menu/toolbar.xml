@@ -17,7 +17,12 @@
     <item
         android:id="@+id/settings"
         android:icon="@drawable/ic_settings"
-        android:title="设置"
+        android:title="打开提醒功能"
+        app:showAsAction = "never"/>
+    <item
+        android:id="@+id/close"
+        android:icon="@drawable/ic_settings"
+        android:title="关闭提醒功能"
         app:showAsAction = "never"/>
     <item
         android:id="@+id/exit"

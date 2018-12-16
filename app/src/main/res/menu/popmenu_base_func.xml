@@ -10,10 +10,10 @@
 	<item android:id="@+id/top15"
 		android:title="显示周末"/>
 
-	<item android:id="@+id/top1"
-	    android:title="添加一门课程"/>
-	<item android:id="@+id/top2"
-	    android:title="删除一门课程"/>
+	<!--<item android:id="@+id/top1"-->
+	    <!--android:title="添加一门课程"/>-->
+	<!--<item android:id="@+id/top2"-->
+	    <!--android:title="删除一门课程"/>-->
 
 	<item android:id="@+id/top4"
 		android:title="隐藏非本周课程"/>

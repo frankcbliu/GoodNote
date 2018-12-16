@@ -44,7 +44,13 @@
         <activity
             android:name=".login.ChangePWActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".Course.ChangeTimeTable"></activity>
+        <activity android:name=".Course.ChangeTimeTable" />
+
+        <service
+            android:name=".server.LongRunningService"
+            android:enabled="true"
+            android:exported="true"></service>
+
     </application>
 
 </manifest>
