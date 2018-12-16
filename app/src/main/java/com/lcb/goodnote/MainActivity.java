@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity {
     private DrawerLayout mDrawerLayout;
 
     //note list 内容
+    public static String USERNAME ;
     private String currentUserName;
     private List<Note> noteList = new ArrayList<>();
     private NoteAdapter adapter;
@@ -96,6 +97,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
 
         //下拉刷新
@@ -185,6 +187,12 @@ public class MainActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.toolbar,menu);
         return true;
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshNote();
+    }
     //监听菜单中的各个按钮的点击事件
 
     @Override
@@ -259,6 +267,7 @@ public class MainActivity extends BaseActivity {
         noteList.clear();
         //当前用户名
         currentUserName = getSharedPreferences("userInfo",Activity.MODE_PRIVATE).getString("username","");
+        USERNAME = currentUserName;
         List<ActivityData> list = LitePal.findAll(ActivityData.class);
         for (ActivityData data:list){
             if (data.getUsername().equals(currentUserName)){//判断是否当前用户名

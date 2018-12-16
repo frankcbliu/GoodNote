@@ -1,6 +1,10 @@
 package com.lcb.goodnote.Course;
 
+import com.lcb.goodnote.MainActivity;
+import com.lcb.goodnote.db.ActivityData;
 import com.lcb.goodnote.db.CourseData;
+
+import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,20 @@ public class CourseInit {
         course.setStep(getStep(newCourse));
         course.setRoom(getRoom(newCourse));
         course.save();
+        List<ActivityData> activityDatas = LitePal.where("activity_address = ?",getName(newCourse)+"作业").find(ActivityData.class);
+        if (activityDatas.size()>0){
+            return course;
+        }else {
+            ActivityData data = new ActivityData();
+            data.setUsername(MainActivity.USERNAME);
+            data.setActivity_year(2018);
+            data.setActivity_month(12);
+            data.setActivity_day(16+getDay(newCourse));
+            data.setActivity_theme("作业："+getName(newCourse));
+            data.setActivity_content("");
+            data.setActivity_address(getName(newCourse)+"作业");
+            data.save();
+        }
         return course;
     }
 

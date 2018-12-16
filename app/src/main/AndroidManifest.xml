@@ -13,8 +13,10 @@
         android:roundIcon="@mipmap/desktop_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".AddActivity" />
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".AddActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".NoteActivity" />
 
         <provider
@@ -39,12 +41,14 @@
         <activity
             android:name=".login.RegisterActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".Course.CourseActivity" />
+        <activity android:name=".Course.CourseActivity"
+            android:launchMode="singleTop"/>
         <activity android:name=".Course.AddTimeTable" />
         <activity
             android:name=".login.ChangePWActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".Course.ChangeTimeTable" />
+        <activity android:name=".Course.ChangeTimeTable"
+            android:launchMode="singleTask"/>
 
         <service
             android:name=".server.LongRunningService"

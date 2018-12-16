@@ -163,6 +163,14 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
                 .showView();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mySubjects = SubjectRepertory.loadByLitePal();
+        initTimetableView();
+        mTimetableView.updateView();
+    }
+
     /**
      * 更新一下，防止因程序在后台时间过长（超过一天）而导致的日期或高亮不准确问题。
      */

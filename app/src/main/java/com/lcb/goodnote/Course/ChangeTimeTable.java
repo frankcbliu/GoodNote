@@ -30,6 +30,7 @@ public class ChangeTimeTable extends BaseActivity {
     private final String DAY_ERROR = "day_error";
     private final String SS_NULL = "ss_null";
     private final String SS_ERROR = "ss_error";
+    private final String ROOM_NULL = "room_null";
 
     //传递信息
     public static final String NAME = "name";
@@ -96,6 +97,8 @@ public class ChangeTimeTable extends BaseActivity {
             return DAY_NULL;
         }else if (day.length()>1){
             return DAY_ERROR;
+        }else if (room.length()==0){
+            return ROOM_NULL;
         }
         weeks = getWeeks(weeks);
         start_step = getSS(start_step);
@@ -132,6 +135,9 @@ public class ChangeTimeTable extends BaseActivity {
                 return;
             case SS_ERROR:
                 Toast.makeText(ChangeTimeTable.this, "上课节数输入错误", Toast.LENGTH_SHORT).show();
+                return;
+            case ROOM_NULL:
+                Toast.makeText(ChangeTimeTable.this, "地点不能为空", Toast.LENGTH_SHORT).show();
                 return;
         }
 
@@ -170,11 +176,10 @@ public class ChangeTimeTable extends BaseActivity {
         for (CourseData data:datas){
             data.delete();
         }
-
+        finish();
         Intent intent = new Intent(ChangeTimeTable.this,CourseActivity.class);
         startActivity(intent);
         Toast.makeText(ChangeTimeTable.this,"成功删除课程："+CourseInit.getName(old_course),Toast.LENGTH_SHORT).show();
-        finish();
     }
     /**
      * 获取周数
