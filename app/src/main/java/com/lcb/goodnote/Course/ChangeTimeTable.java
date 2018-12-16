@@ -162,7 +162,18 @@ public class ChangeTimeTable extends BaseActivity {
         return course;
     }
     public void onCancel(View view){//删除
-        Toast.makeText(ChangeTimeTable.this,"删除",Toast.LENGTH_SHORT).show();
+
+        //刷新一遍字符串
+        String course = getString();
+
+        List<CourseData> datas = LitePal.where("name = ? and day = ? and start = ?", CourseInit.getName(old_course), ""+CourseInit.getDay(old_course), ""+CourseInit.getStart(old_course)).find(CourseData.class);
+        for (CourseData data:datas){
+            data.delete();
+        }
+
+        Intent intent = new Intent(ChangeTimeTable.this,CourseActivity.class);
+        startActivity(intent);
+        Toast.makeText(ChangeTimeTable.this,"成功删除课程："+CourseInit.getName(old_course),Toast.LENGTH_SHORT).show();
         finish();
     }
     /**
