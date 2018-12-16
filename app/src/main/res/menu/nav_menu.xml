@@ -5,14 +5,14 @@
         <item
             android:id="@+id/nav_changeIcon"
             android:icon="@drawable/ic_settings"
-            android:title="修改头像"/>
+            android:title="@string/menu_nav_image"/>
         <item
             android:id="@+id/nav_friends"
             android:icon="@drawable/nav_friends"
-            android:title="Friends"/>
+            android:title="@string/menu_nav_password"/>
         <item
             android:id="@+id/nav_task"
             android:icon="@drawable/nav_task"
-            android:title="新建活动"/>
+            android:title="@string/menu_nav_course"/>
     </group>
 </menu>

@@ -15,4 +15,13 @@
     <color name="color_d81e06">#d81e06</color>
     <color name="color_b0b8b2">#b0b8b2</color>
     <color name="color_333333">#333333</color>
+
+    <!-- 课程表 -->
+    <color name="app_gold">#FF7A59</color>
+    <color name="app_white_slight">#FBFBFB</color>
+    <color name="theme_dark">#2A3033</color>
+    <color name="theme_dark2">#787C7E</color>
+    <color name="app_white">#ffffff</color>
+
+    <color name="layer_grid_line">#000000</color>
 </resources>

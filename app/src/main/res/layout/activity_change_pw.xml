@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".login.ChangePWActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="修改密码"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:background="#99ffffff"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#66000000"/>
+
+    <EditText
+        android:id="@+id/old_psw_edt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:hint="请输入原密码"
+        android:inputType="textPassword"
+        />
+
+    <EditText
+        android:id="@+id/new_psw_edt"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:hint="请输入新密码"
+        android:inputType="textPassword"/>
+    <EditText
+        android:id="@+id/new_psw_edt_check"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:padding="5dp"
+        android:hint="确认密码"
+        android:inputType="textPassword"/>
+    <Button
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center_horizontal"
+        android:text="确认修改"
+        android:onClick="onChange"
+        />
+
+
+
+</LinearLayout>

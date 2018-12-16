@@ -36,9 +36,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lcb.goodnote.Course.CourseActivity;
 import com.lcb.goodnote.activityManger.BaseActivity;
 import com.lcb.goodnote.db.ActivityData;
+import com.lcb.goodnote.db.CourseData;
 import com.lcb.goodnote.db.UserData;
+import com.lcb.goodnote.login.ChangePWActivity;
 
 import org.litepal.LitePal;
 
@@ -116,10 +119,14 @@ public class MainActivity extends BaseActivity {
                             case R.id.nav_changeIcon://修改头像
                                 changeImage();
                                 break;
-                            case R.id.nav_task:
+                            case R.id.nav_task://我的课表
+                                Intent intent = new Intent(MainActivity.this, CourseActivity.class);
+                                startActivity(intent);
 
 //                                break;
-//                            case R.id.nav_friends:
+                            case R.id.nav_friends://修改密码
+                                Intent intent_c_psw = new Intent(MainActivity.this,ChangePWActivity.class);
+                                startActivity(intent_c_psw);
 //                                showUserData();
 
                         }
@@ -187,6 +194,7 @@ public class MainActivity extends BaseActivity {
                 mDrawerLayout.openDrawer(GravityCompat.START);
                 break;
             case R.id.backup:
+                showUserData();
                 Toast.makeText(this,"You click Backup.",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.delete:

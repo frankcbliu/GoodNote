@@ -2,10 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.lcb.goodnote">
 
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
 
     <application
         android:name="org.litepal.LitePalApplication"
@@ -15,8 +13,8 @@
         android:roundIcon="@mipmap/desktop_logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".AddActivity" ></activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".AddActivity" />
         <activity android:name=".NoteActivity" />
 
         <provider
@@ -30,16 +28,21 @@
         </provider>
 
         <activity
-            android:launchMode="singleTask"
-            android:name=".login.LoginActivity" >
+            android:name=".login.LoginActivity"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:launchMode="singleTask"
-            android:name=".login.RegisterActivity"></activity>
+            android:name=".login.RegisterActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".Course.CourseActivity" />
+        <activity android:name=".Course.AddTimeTable" />
+        <activity android:name=".login.ChangePWActivity"
+            android:launchMode="singleTask"></activity>
     </application>
 
 </manifest>
