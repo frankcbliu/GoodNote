@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.lcb.goodnote.R;
 import com.lcb.goodnote.activityManger.BaseActivity;
+import com.lcb.goodnote.db.CourseData;
 import com.zhuangfei.timetable.TimetableView;
 import com.zhuangfei.timetable.listener.ISchedule;
 import com.zhuangfei.timetable.listener.IWeekView;
@@ -23,6 +24,8 @@ import com.zhuangfei.timetable.listener.OnSlideBuildAdapter;
 import com.zhuangfei.timetable.model.Schedule;
 import com.zhuangfei.timetable.view.WeekView;
 import com.lcb.goodnote.Course.CourseInit;
+
+import org.litepal.LitePal;
 
 import java.util.List;
 
@@ -137,6 +140,14 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
                 .callback(new ISchedule.OnItemLongClickListener() {
                     @Override
                     public void onLongClick(View v, int day, int start) {
+
+                        List<CourseData> dataList = LitePal.where("day = ? and start = ?",""+day,""+start).find(CourseData.class);
+                        for (CourseData data:dataList){
+                            data.delete();
+                        }
+                        mySubjects = SubjectRepertory.loadByLitePal();
+                        initTimetableView();
+                        mTimetableView.updateView();
                         Toast.makeText(CourseActivity.this,
                                 "长按删除:周" + day  + ",第" + start + "节",
                                 Toast.LENGTH_SHORT).show();

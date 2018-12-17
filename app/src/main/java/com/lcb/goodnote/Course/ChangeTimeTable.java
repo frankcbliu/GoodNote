@@ -180,6 +180,7 @@ public class ChangeTimeTable extends BaseActivity {
         Intent intent = new Intent(ChangeTimeTable.this,CourseActivity.class);
         startActivity(intent);
         Toast.makeText(ChangeTimeTable.this,"成功删除课程："+CourseInit.getName(old_course),Toast.LENGTH_SHORT).show();
+
     }
     /**
      * 获取周数
