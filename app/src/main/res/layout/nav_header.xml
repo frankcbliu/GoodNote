@@ -20,13 +20,13 @@
         android:textColor="#FFF"
         android:textSize="14sp"/>
 
-    <TextView
-        android:id="@+id/mail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/username"
-        android:text="联系作者：2017133125@email.szu.edu.cn"
-        android:textColor="#FFF"
-        android:textSize="14sp"/>
+    <!--<TextView-->
+        <!--android:id="@+id/mail"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_above="@+id/username"-->
+        <!--android:text="联系作者：2017133125@email.szu.edu.cn"-->
+        <!--android:textColor="#FFF"-->
+        <!--android:textSize="14sp"/>-->
 
 </RelativeLayout>

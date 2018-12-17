@@ -135,9 +135,17 @@ public class MainActivity extends BaseActivity {
                                 Intent intent_c_psw = new Intent(MainActivity.this,ChangePWActivity.class);
                                 startActivity(intent_c_psw);
                                 break;
-                            case R.id.nav_exit://退出程序
-                                ActivityCollector.finishAll();
-                                android.os.Process.killProcess(android.os.Process.myPid());
+                            case R.id.nav_exit://退出账号功能
+                                back_login = getSharedPreferences("back_login",MODE_PRIVATE);
+                                SharedPreferences.Editor editor = back_login.edit();
+                                editor.putBoolean("back_login", false);
+                                editor.apply();
+                                //强制下线广播
+                                Intent intent1 = new Intent("com.lcb.goodnote.activityManger.FORCE_OFFLINE");
+                                sendBroadcast(intent1);
+                                //退出程序
+//                                ActivityCollector.finishAll();
+//                                android.os.Process.killProcess(android.os.Process.myPid());
                                 break;
                         }
                         mDrawerLayout.closeDrawers();
@@ -207,12 +215,12 @@ public class MainActivity extends BaseActivity {
                 ActivityData activityData = new ActivityData();
                 currentUserName = getSharedPreferences("userInfo",Activity.MODE_PRIVATE).getString("username","");
                 activityData.setUsername(currentUserName);
-                activityData.setActivity_theme("实验室搬砖");
+                activityData.setActivity_theme("数据结构期末机考");
                 activityData.setActivity_address("信工楼N106");
-                activityData.setActivity_content("做项目、预习期末考试科目");
-                activityData.setActivity_year(2018);
-                activityData.setActivity_month(12);
-                activityData.setActivity_day(19);
+                activityData.setActivity_content("1.复习知识点\n2.刷oj上的题\n3.适当记忆算法");
+                activityData.setActivity_year(2019);
+                activityData.setActivity_month(1);
+                activityData.setActivity_day(5);
                 activityData.save();
                 refreshNote();
                 Toast.makeText(this,"初始化预设课程和活动.",Toast.LENGTH_SHORT).show();
@@ -249,15 +257,15 @@ public class MainActivity extends BaseActivity {
                 Toast.makeText(MainActivity.this,"关闭提醒功能",Toast.LENGTH_SHORT).show();
                 stopService(stopIntent);
                 break;
-            case R.id.exit:
-                //退出账号功能
-                back_login = getSharedPreferences("back_login",MODE_PRIVATE);
-                SharedPreferences.Editor editor = back_login.edit();
-                editor.putBoolean("back_login", false);
-                editor.apply();
-                //强制下线广播
-                Intent intent = new Intent("com.lcb.goodnote.activityManger.FORCE_OFFLINE");
-                sendBroadcast(intent);
+//            case R.id.exit:
+//                //退出账号功能
+//                back_login = getSharedPreferences("back_login",MODE_PRIVATE);
+//                SharedPreferences.Editor editor = back_login.edit();
+//                editor.putBoolean("back_login", false);
+//                editor.apply();
+//                //强制下线广播
+//                Intent intent = new Intent("com.lcb.goodnote.activityManger.FORCE_OFFLINE");
+//                sendBroadcast(intent);
             default:
         }
         return true;

@@ -24,9 +24,9 @@
         android:icon="@drawable/ic_settings"
         android:title="关闭提醒功能"
         app:showAsAction = "never"/>
-    <item
-        android:id="@+id/exit"
-        android:title="退出账号"
-        app:showAsAction="never"/>
+    <!--<item-->
+        <!--android:id="@+id/exit"-->
+        <!--android:title="退出账号"-->
+        <!--app:showAsAction="never"/>-->
 
 </menu>

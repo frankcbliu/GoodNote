@@ -190,7 +190,7 @@ public class ChangeTimeTable extends BaseActivity {
         String[] num = weeks.split("[-]");
         String res = "";
         if (num.length>1){
-            for (int i = 1; i <= Integer.parseInt(num[1]); i++) {
+            for (int i = Integer.parseInt(num[0]); i <= Integer.parseInt(num[1]); i++) {
                 res = res + i + '.';
             }
             return "["+res+"]";

@@ -45,7 +45,7 @@ public class AddActivity extends BaseActivity implements DatePicker.OnDateChange
 
 //        button_create= (Button) findViewById(R.id.button_create);
         setTitle("时间日期控件测试");
-
+        collapsingToolbar.setTitle("添加活动");
         add_bt_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

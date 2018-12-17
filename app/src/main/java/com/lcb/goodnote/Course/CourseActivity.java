@@ -76,7 +76,7 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
 
         //设置周次选择属性
         mWeekView.source(mySubjects)
-                .curWeek(1)
+                .curWeek(16)
                 .callback(new IWeekView.OnWeekItemClickedListener() {
                     @Override
                     public void onWeekClicked(int week) {
@@ -97,7 +97,7 @@ public class CourseActivity extends BaseActivity  implements View.OnClickListene
                 .showView();
 
         mTimetableView.source(mySubjects)
-                .curWeek(1)
+                .curWeek(16)
                 .curTerm("大二下学期")//大三下
                 .maxSlideItem(10)
                 .monthWidthDp(30)
