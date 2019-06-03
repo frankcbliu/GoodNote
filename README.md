@@ -2,7 +2,7 @@
 面向大学生的个人活动管理APP
 >> 效果展示
 
-![](https://github.com/learningNicolas/MarkdownImageRepertory/blob/master/image/goodnote-1.jpg?raw=true)
+![](https://github.com/learningNicolas/MarkdownImageRepertory/blob/master/image/goodnote-1.jpg?raw=true){:width:100px;height:100px;}
 
 ![](https://github.com/learningNicolas/MarkdownImageRepertory/blob/master/image/goodnote-2.jpg?raw=true)
 
