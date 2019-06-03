@@ -3,6 +3,7 @@
 >> 效果展示
 
 <img width="250" height="400" src="https://github.com/learningNicolas/MarkdownImageRepertory/blob/master/image/goodnote-1.jpg"/><img width="250" height="400" src="https://github.com/learningNicolas/MarkdownImageRepertory/blob/master/image/goodnote-2.jpg"/>
+
 <img width="250" height="400" src="https://github.com/learningNicolas/MarkdownImageRepertory/blob/master/image/goodnote-3.jpg"/><img width="250" height="400" src="https://github.com/learningNicolas/MarkdownImageRepertory/blob/master/image/goodnote-4.jpg"/>
 
 >> 更新日志
